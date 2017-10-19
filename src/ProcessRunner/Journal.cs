@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Dynamo.Automation
+namespace Dynamo.AutomationJunior
 {
     /// <summary>
     /// Automates Journal creation.
@@ -136,7 +136,13 @@ namespace Dynamo.Automation
                 throw new FileNotFoundException();
             }
             string projectOpen = String.Format("Jrn.Command \"StartupPage\" , \"Open this project , ID_FILE_MRU_FIRST\" \n" +
-                                            "Jrn.Data \"MRUFileName\" , \"{0}\" \n", revitFilePath);
+                                            "Jrn.Data \"MRUFileName\" , \"{0}\" \n", revitFilePath +
+                                            "Jrn.Data \"FileOpenSubDialog\" , \"OpenAsLocalCheckBox\" , \"True\" \n" +
+                                            "Jrn.Data \"FileOpenSubDialog\" , \"DetachCheckBox\" , \"True\" \n" +
+                                            "Jrn.Data \"FileOpenSubDialog\" , \"OpenAsLocalCheckBox\" , \"False\" " + 
+                                            "Jrn.Data \"WorksetConfig\" , \"Custom\" , {workset_config} " +
+                                            "Jrn.PushButton \"Modal, Opening Worksets, Dialog_Revit_Partitions\", \"OK, IDOK\"" +
+                                            "Jrn.Data \"TaskDialogResult\" , \"Detaching this model will create an independent model. You will be unable to synchronize your changes with the original central model.\" & vbLf & \"What do you want to do?\", \"Detach and preserve worksets\", \"1001\"");
             if (circumventPerspectiveViews)
             {
                 projectOpen += "Jrn.Command \"Ribbon\" , \"Create a default 3D orthographic view. , ID_VIEW_DEFAULT_3DVIEW\" \n";

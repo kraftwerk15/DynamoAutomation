@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 
-namespace Dynamo.Automation
+namespace Dynamo.AutomationJunior
 {
     /// <summary>
     /// Automates Preset creation.
